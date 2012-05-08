@@ -2,7 +2,7 @@
 cd "$(dirname "$0")"
 git pull
 # get RVM
-curl -L get.rvm.io | bash -s stable
+[[ -s "$HOME/.rvm/scripts/rvm" ]] || curl -L get.rvm.io | bash -s stable
 function doIt() {
 	rsync --exclude ".git/" --exclude ".DS_Store" --exclude "bootstrap.sh" --exclude "README.md" -av . ~
 }
