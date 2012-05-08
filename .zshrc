@@ -34,3 +34,4 @@ plugins=(git brew bundler gem)
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
+source $HOME/.bash_profile
