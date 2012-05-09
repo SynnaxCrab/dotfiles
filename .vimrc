@@ -8,7 +8,9 @@ if exists("&undodir")
 	set undodir=~/.vim/undo
 endif
 
-" Set color schema
+" Set color schema and syntax
+set t_Co=256
+syntax on
 if has('gui_running')
 	set background=light
 	colorscheme solarized
@@ -16,6 +18,9 @@ else
 	set background=dark
 	colorscheme desert256
 endif
+
+" Enabled later, after Pathogen
+filetype off
 
 " Make tabs as wide as two spaces and soft
 set tabstop=2
