@@ -8,6 +8,15 @@ if exists("&undodir")
 	set undodir=~/.vim/undo
 endif
 
+" Set color schema
+if has('gui_running')
+	set background=light
+	colorscheme solarized
+else
+	set background=dark
+	colorscheme desert256
+endif
+
 " Make tabs as wide as two spaces and soft
 set tabstop=2
 set shiftwidth=2
