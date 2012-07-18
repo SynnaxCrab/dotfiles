@@ -5,7 +5,10 @@
 ## Installation
 
 ```bash
-git clone https://github.com/winfield/dotfiles.git && cd dotfiles && ./bootstrap.sh
+git clone https://github.com/winfield/dotfiles.git
+git submodule init
+git submodule update
+cd dotfiles && ./bootstrap.sh
 ```
 
 To update, `cd` into your local `dotfiles` repository and then:
