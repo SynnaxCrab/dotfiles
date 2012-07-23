@@ -51,6 +51,11 @@ set ruler " Show the cursor position
 set showcmd " Show the (partial) command as it’s being typed
 set scrolloff=5 " Start scrolling three lines before the horizontal window border
 
+" map file highlights
+if has("autocmd")
+	au BufRead,BufNewFile *.ejs setfiletype html
+endif
+
 " Strip trailing whitespace (,ss)
 function! StripWhitespace()
 	let save_cursor = getpos(".")
