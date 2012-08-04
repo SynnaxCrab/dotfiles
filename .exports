@@ -16,7 +16,7 @@ export HISTCONTROL=ignoredups
 # export HISTIGNORE="ls:ls *:cd:cd -:pwd;exit:date:* --help"
 
 # Add Custome PATH
-export PATH=$HOME/Scripts:$PATH
+export PATH=/usr/local/bin:$HOME/Scripts:$PATH
 
 # Add RVM
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
