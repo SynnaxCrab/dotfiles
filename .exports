@@ -20,6 +20,3 @@ export PATH=/usr/local/bin:$HOME/Scripts:$PATH
 
 # Node Path
 export NODE_PATH=/usr/local/lib/node_module
-
-# RVM
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
