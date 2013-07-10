@@ -54,6 +54,7 @@ set scrolloff=5 " Start scrolling three lines before the horizontal window borde
 " map file highlights
 if has("autocmd")
 	au BufRead,BufNewFile *.ejs setfiletype html
+	au BufRead,BufNewFile *.less setfiletype css
 endif
 
 " Strip trailing whitespace (,ss)
