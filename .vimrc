@@ -1,3 +1,5 @@
+scriptencoding utf-8
+set encoding=utf-8
 " Make vim more useful, not vi-compatible
 set nocompatible
 
