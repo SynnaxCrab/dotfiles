@@ -20,3 +20,10 @@ export PATH=/usr/local/bin:$HOME/Scripts:$PATH
 
 # Node Path
 export NODE_PATH=/usr/local/lib/node_module
+
+# nvm
+. ~/.nvm/nvm.sh
+
+# rbenv
+export PATH=$HOME/.rbenv/bin:$PATH
+eval "$(rbenv init -)"
