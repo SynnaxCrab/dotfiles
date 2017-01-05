@@ -76,4 +76,9 @@ filetype plugin indent on
 
 call plug#begin('~/.vim/plugged')
 Plug 'scrooloose/nerdtree'
+Plug 'tpope/vim-fugitive'
+Plug 'scrooloose/syntastic'
+Plug 'tpope/vim-surround'
+Plug 'pangloss/vim-javascript'
+Plug 'tpope/vim-rails'
 call plug#end()
