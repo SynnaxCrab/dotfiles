@@ -1,3 +1,4 @@
+" set rtp+=/usr/local/lib/python2.7/site-packages/powerline/bindings/vim
 scriptencoding utf-8
 set encoding=utf-8
 " Make vim more useful, not vi-compatible
@@ -71,5 +72,8 @@ noremap <leader>ss :call StripWhitespace()<CR>
 " Save a file as root (,W)
 noremap <leader>W :w !sudo tee % > /dev/null<CR>
 
-call pathogen#infect()
 filetype plugin indent on
+
+call plug#begin('~/.vim/plugged')
+Plug 'scrooloose/nerdtree'
+call plug#end()
