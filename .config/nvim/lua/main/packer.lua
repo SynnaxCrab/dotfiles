@@ -18,7 +18,7 @@ return require('packer').startup(function(use)
 	  as = 'rose-pine',
   })
 
-  usex({
+  use({
     'tanvirtin/monokai.nvim',
 	  as = 'monokai',
   })

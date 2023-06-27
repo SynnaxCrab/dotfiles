@@ -1,6 +1,4 @@
-local lsp = require("lsp-zero")
-
-lsp.preset("recommended")
+local lsp = require('lsp-zero').preset({})
 
 local cmp = require('cmp')
 local cmp_mappings = lsp.defaults.cmp_mappings({
@@ -67,9 +65,20 @@ local function on_list(options)
 end
 
 lsp.on_attach(function (client, bufnr)
-  local opts = {buffer = bufnr, remap = false}
-      local bufopts = { noremap=true, silent=true, buffer=bufnr }
-      vim.keymap.set('n', 'gd', function() vim.lsp.buf.definition{on_list=on_list} end, bufopts)
-  end)
+  lsp.default_keymaps({
+    buffer = bufnr,
+    preserve_mappings = false
+  })
+  --local opts = {buffer = bufnr, preserve_mappings = false, remap = false}
+  --    local bufopts = { noremap=true, silent=true, buffer=bufnr }
+  --    vim.keymap.set('n', 'gd', function() vim.lsp.buf.definition{on_list=on_list} end, bufopts)
+end)
+
+lsp.set_sign_icons({
+  error = '✘',
+  warn = '▲',
+  hint = '⚑',
+  info = '»'
+})
 
 lsp.setup()
