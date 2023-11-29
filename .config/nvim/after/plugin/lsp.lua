@@ -69,9 +69,10 @@ lsp.on_attach(function (client, bufnr)
     buffer = bufnr,
     preserve_mappings = false
   })
-  --local opts = {buffer = bufnr, preserve_mappings = false, remap = false}
-  --    local bufopts = { noremap=true, silent=true, buffer=bufnr }
-  --    vim.keymap.set('n', 'gd', function() vim.lsp.buf.definition{on_list=on_list} end, bufopts)
+
+  local opts = {buffer = bufnr, preserve_mappings = false, remap = false}
+    local bufopts = { noremap=true, silent=true, buffer=bufnr }
+    vim.keymap.set('n', 'gd', function() vim.lsp.buf.definition{on_list=on_list} end, bufopts)
 end)
 
 lsp.set_sign_icons({

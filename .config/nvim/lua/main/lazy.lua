@@ -48,7 +48,6 @@ require("lazy").setup({
   },
   {
 	  'nvim-telescope/telescope.nvim',
-    version = '0.1.0',
 	  dependencies = {
       'nvim-lua/plenary.nvim'
     }
@@ -74,12 +73,14 @@ require("lazy").setup({
   },
   {
     "lukas-reineke/indent-blankline.nvim",
+    main = 'ibl',
     config = true,
   },
   {
     'lewis6991/gitsigns.nvim',
     config = true,
   },
+  {'akinsho/git-conflict.nvim', config = true},
   {
     'folke/trouble.nvim',
     dependencies = {
