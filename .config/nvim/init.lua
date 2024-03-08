@@ -1,1 +1,5 @@
-require("main")
+require("config.set")
+require("config.remap")
+require("config.lazy")
+require("config.colors")
+require("config.lsp-zero")
