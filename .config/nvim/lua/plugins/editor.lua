@@ -39,10 +39,17 @@ return {
     dependencies = { "nvim-lua/plenary.nvim" },
     config = true,
     keys = {
-      { "<leader>a",  "<cmd>lua require('harpoon.mark').add_file()<cr>",        desc = "Mark file with harpoon" },
-      { "<leader>hn", "<cmd>lua require('harpoon.ui').nav_next()<cr>",          desc = "Go to next harpoon mark" },
-      { "<leader>hp", "<cmd>lua require('harpoon.ui').nav_prev()<cr>",          desc = "Go to previous harpoon mark" },
-      { "<leader>ha", "<cmd>lua require('harpoon.ui').toggle_quick_menu()<cr>", desc = "Show harpoon marks" },
+      { "<leader>a",  function() require("harpoon"):list():append() end, desc = "Mark file with harpoon" },
+      {
+        "<leader>ha",
+        function()
+          local harpoon = require("harpoon")
+          harpoon.ui:toggle_quick_menu(harpoon:list())
+        end,
+        desc = "Show harpoon marks"
+      },
+      { "<leader>hp", function() require("harpoon"):list():prev() end,   desc = "Go to previous harpoon mark" },
+      { "<leader>hn", function() require("harpoon"):list():next() end,   desc = "Go to next harpoon mark" },
     }
   }
 }
