@@ -9,6 +9,15 @@ return {
     opts = {}
   },
   {
+    "lewis6991/gitsigns.nvim",
+    opts = {
+      current_line_blame = false
+    },
+    keys = {
+      { "<leader>tb", function() require("gitsigns").toggle_current_line_blame() end },
+    }
+  },
+  {
     "nvim-neo-tree/neo-tree.nvim",
     branch = "v3.x",
     keys = {
