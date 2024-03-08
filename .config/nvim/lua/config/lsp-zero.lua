@@ -1,5 +1,7 @@
 local lsp_zero = require('lsp-zero')
 
+lsp_zero.extend_lspconfig()
+
 lsp_zero.set_sign_icons({
   error = '✘',
   warn = '▲',
@@ -30,25 +32,25 @@ require('mason-lspconfig').setup({
 
 local cmp = require('cmp')
 local cmp_action = lsp_zero.cmp_action()
+local cmp_format = lsp_zero.cmp_format({ details = true })
+
+require('luasnip.loaders.from_vscode').lazy_load()
 
 cmp.setup({
+  sources = {
+    { name = 'nvim_lsp' },
+    { name = 'luasnip' },
+  },
   preselect = 'none',
   window = {
-    completion = {
-      completeopt = 'menu,menuone,noinsert,noselect'
-    },
-    documentation = {
-      max_height = 50,
-      max_width = 60,
-      border = 'rounded',
-      col_offset = 0,
-      side_padding = 1,
-      winhighlight = 'Normal:Normal,FloatBorder:Normal,CursorLine:Visual,Search:None',
-      zindex = 1001
-    }
+    completion = cmp.config.window.bordered(),
+    documentation = cmp.config.window.bordered(),
   },
   mapping = cmp.mapping.preset.insert({
     ['<Tab>'] = cmp_action.tab_complete(),
     ['<S-Tab>'] = cmp_action.select_prev_or_fallback(),
+    ['<CR>'] = cmp.mapping.confirm({ select = false }),
   }),
+
+  formatting = cmp_format,
 })
