@@ -9,17 +9,6 @@ lsp_zero.set_sign_icons({
   info = '»'
 })
 
-lsp_zero.on_attach(function(client, bufnr)
-  lsp_zero.default_keymaps({
-    buffer = bufnr,
-    preserve_mappings = false
-  })
-
-  lsp_zero.buffer_autoformat()
-
-  vim.lsp.inlay_hint.enable(bufnr, false)
-end)
-
 local function filter(arr, fn)
   if type(arr) ~= "table" then
     return arr
@@ -39,6 +28,34 @@ local function filterReactDTS(value)
   return string.match(value.filename, 'react/index.d.ts') == nil
 end
 
+local function on_list(options)
+  local items = options.items
+  if #items > 1 then
+    items = filter(items, filterReactDTS)
+  end
+
+  vim.fn.setqflist({}, ' ', { title = options.title, items = items, context = options.context })
+  vim.api.nvim_command('cfirst') -- or maybe you want 'copen' instead of 'cfirst'
+end
+
+lsp_zero.on_attach(function(client, bufnr)
+  lsp_zero.default_keymaps({
+    buffer = bufnr,
+    preserve_mappings = false
+  })
+
+  lsp_zero.buffer_autoformat()
+
+  vim.lsp.inlay_hint.enable(bufnr, false)
+
+  local bufopts = { noremap = true, silent = true, buffer = bufnr, desc = 'Go to definition' }
+  vim.keymap.set('n', 'gd', function() vim.lsp.buf.definition { on_list = on_list } end, bufopts)
+  vim.keymap.set('n', '<leader>i', function()
+    local is_enabled = vim.lsp.inlay_hint.is_enabled(bufnr)
+    vim.lsp.inlay_hint.enable(bufnr, not is_enabled)
+  end, { desc = 'Toggle inlay hint' })
+end)
+
 require('mason').setup({})
 require('mason-lspconfig').setup({
   ensure_installed = {
@@ -52,16 +69,6 @@ require('mason-lspconfig').setup({
     ["tsserver"] = function()
       local lspconfig = require('lspconfig')
       lspconfig.tsserver.setup({
-        handlers = {
-          ['textDocument/definition'] = function(err, result, method, ...)
-            if vim.tbl_islist(result) and #result > 1 then
-              local filtered_result = filter(result, filterReactDTS)
-              return vim.lsp.handlers['textDocument/definition'](err, filtered_result, method, ...)
-            end
-
-            vim.lsp.handlers['textDocument/definition'](err, result, method, ...)
-          end
-        },
         settings = {
           typescript = {
             inlayHints = {
