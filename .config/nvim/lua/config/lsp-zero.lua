@@ -14,8 +14,30 @@ lsp_zero.on_attach(function(client, bufnr)
     buffer = bufnr,
     preserve_mappings = false
   })
+
   lsp_zero.buffer_autoformat()
+
+  vim.lsp.inlay_hint.enable(bufnr, false)
 end)
+
+local function filter(arr, fn)
+  if type(arr) ~= "table" then
+    return arr
+  end
+
+  local filtered = {}
+  for k, v in pairs(arr) do
+    if fn(v, k, arr) then
+      table.insert(filtered, v)
+    end
+  end
+
+  return filtered
+end
+
+local function filterReactDTS(value)
+  return string.match(value.filename, 'react/index.d.ts') == nil
+end
 
 require('mason').setup({})
 require('mason-lspconfig').setup({
@@ -27,6 +49,47 @@ require('mason-lspconfig').setup({
   },
   handlers = {
     lsp_zero.default_setup,
+    ["tsserver"] = function()
+      local lspconfig = require('lspconfig')
+      lspconfig.tsserver.setup({
+        handlers = {
+          ['textDocument/definition'] = function(err, result, method, ...)
+            if vim.tbl_islist(result) and #result > 1 then
+              local filtered_result = filter(result, filterReactDTS)
+              return vim.lsp.handlers['textDocument/definition'](err, filtered_result, method, ...)
+            end
+
+            vim.lsp.handlers['textDocument/definition'](err, result, method, ...)
+          end
+        },
+        settings = {
+          typescript = {
+            inlayHints = {
+              includeInlayParameterNameHints = 'all',
+              includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+              includeInlayFunctionParameterTypeHints = true,
+              includeInlayVariableTypeHints = true,
+              includeInlayVariableTypeHintsWhenTypeMatchesName = false,
+              includeInlayPropertyDeclarationTypeHints = true,
+              includeInlayFunctionLikeReturnTypeHints = true,
+              includeInlayEnumMemberValueHints = true,
+            }
+          },
+          javascript = {
+            inlayHints = {
+              includeInlayParameterNameHints = 'all',
+              includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+              includeInlayFunctionParameterTypeHints = true,
+              includeInlayVariableTypeHints = true,
+              includeInlayVariableTypeHintsWhenTypeMatchesName = false,
+              includeInlayPropertyDeclarationTypeHints = true,
+              includeInlayFunctionLikeReturnTypeHints = true,
+              includeInlayEnumMemberValueHints = true,
+            }
+          }
+        }
+      })
+    end
   },
 })
 
