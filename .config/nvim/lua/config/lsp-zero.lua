@@ -66,6 +66,19 @@ require('mason-lspconfig').setup({
   },
   handlers = {
     lsp_zero.default_setup,
+    ['rust_analyzer'] = function()
+      local lspconfig = require('lspconfig')
+      lspconfig.rust_analyzer.setup({
+        on_attach = on_attach,
+        settings = {
+          ["rust-analyzer"] = {
+            rustfmt = {
+              overrideCommand = { "leptosfmt", "--stdin", "--rustfmt" }
+            }
+          }
+        },
+      })
+    end,
     ["tsserver"] = function()
       local lspconfig = require('lspconfig')
       lspconfig.tsserver.setup({
