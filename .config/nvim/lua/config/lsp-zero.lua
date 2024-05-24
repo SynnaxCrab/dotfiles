@@ -46,13 +46,13 @@ lsp_zero.on_attach(function(client, bufnr)
 
   lsp_zero.buffer_autoformat()
 
-  vim.lsp.inlay_hint.enable(bufnr, false)
+  vim.lsp.inlay_hint.enable(false, nil)
 
   local bufopts = { noremap = true, silent = true, buffer = bufnr, desc = 'Go to definition' }
   vim.keymap.set('n', 'gd', function() vim.lsp.buf.definition { on_list = on_list } end, bufopts)
   vim.keymap.set('n', '<leader>i', function()
-    local is_enabled = vim.lsp.inlay_hint.is_enabled(bufnr)
-    vim.lsp.inlay_hint.enable(bufnr, not is_enabled)
+    local is_enabled = vim.lsp.inlay_hint.is_enabled()
+    vim.lsp.inlay_hint.enable(not is_enabled, nil)
   end, { desc = 'Toggle inlay hint' })
 end)
 
