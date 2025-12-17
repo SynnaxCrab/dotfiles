@@ -32,7 +32,10 @@ DISABLE_AUTO_UPDATE=true
 # Example format: plugins=(rails git textmate ruby lighthouse)
 plugins=(git brew gem)
 
+
 source $ZSH/oh-my-zsh.sh
+# startship
+eval "$(starship init zsh)"
 
 # Customize to your needs...
 source $HOME/.bash_profile
@@ -40,3 +43,13 @@ source $HOME/.bash_profile
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# bun completions
+[ -s "/home/winfield/.bun/_bun" ] && source "/home/winfield/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+# keychain
+eval $(keychain --eval evinova id_rsa)
